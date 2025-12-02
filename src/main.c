@@ -118,7 +118,7 @@ void start_new_game() {
         board_print(current->shots, false);
         
         printf("\n=== TURNO DE %s ===\n", current->nickname);
-        printf("(Digite 'Q' a qualquer momento para sair)\n");
+        printf("(Digite '0' a qualquer momento para sair)\n");
         
         int row, col;
         bool valid_shot = false;
@@ -127,7 +127,8 @@ void start_new_game() {
             char prompt[64];
             sprintf(prompt, "%s, digite coordenada para atirar", current->nickname);
             
-            if (io_get_coordinates(prompt, &row, &col, game->board_size, game->board_size)) {
+            bool wants_to_quit = false;
+            if (io_get_coordinates(prompt, &row, &col, game->board_size, game->board_size, &wants_to_quit)) {
                 if (game_take_shot(game, row, col)) {
                     valid_shot = true;
                     
@@ -163,8 +164,8 @@ void start_new_game() {
                 } else {
                     printf("Voce ja atirou nesta posicao! Tente outra.\n");
                 }
-            } else {
-                // Verificar se o usuário digitou 'Q' para sair
+            } else if (wants_to_quit) {
+                // O usuário digitou '0' para sair
                 printf("\n");
                 if (ask_to_quit()) {
                     printf("\nSaindo para o menu principal...\n");
@@ -172,6 +173,9 @@ void start_new_game() {
                     io_press_enter();
                     return; // Retorna ao menu principal
                 }
+                // Se não confirmou a saída, continuar
+            } else {
+                // Entrada inválida, mas não é tentativa de sair
                 printf("Coordenada invalida! Use formato como 'A1', 'B5', etc.\n");
             }
         }
@@ -182,10 +186,10 @@ void start_new_game() {
         }
         
         // Perguntar se quer sair entre turnos
-        printf("\nDeseja continuar? (Pressione ENTER para continuar ou 'Q' para sair): ");
+        printf("\nDeseja continuar? (Pressione ENTER para continuar ou '0' para sair): ");
         char input[10];
         if (fgets(input, sizeof(input), stdin) != NULL) {
-            if (toupper(input[0]) == 'Q') {
+            if (input[0] == '0') {
                 if (ask_to_quit()) {
                     printf("\nSaindo para o menu principal...\n");
                     game_destroy(game);

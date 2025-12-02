@@ -5,7 +5,6 @@
 #include <ctype.h>
 #include "rnd.h"
 
-// ==================== FUNÇÕES DE SOM SIMPLES ====================
 
 void play_hit_sound() {
     printf("\n[ BOOOMMM! ] ACERTOU!\n");
@@ -23,7 +22,6 @@ void play_turn_sound(const char* player_name) {
     printf("\n--- TURNO DE %s ---\n", player_name);
 }
 
-// ==================== FUNÇÕES ORIGINAIS ====================
 
 void io_print_header() {
     io_clear_screen();
@@ -61,21 +59,26 @@ void io_print_legend() {
     printf("~ = Agua\n");
 }
 
-bool io_get_coordinates(const char *prompt, int *row, int *col, int max_rows, int max_cols) {
+bool io_get_coordinates(const char *prompt, int *row, int *col, int max_rows, int max_cols, bool *wants_to_quit) {
     char input[32];
-    printf("%s (ex: A1) ou 'Q' para sair: ", prompt);
+    printf("%s (ex: A1) ou '0' para sair: ", prompt);
     
     if (fgets(input, sizeof(input), stdin) == NULL) {
+        *wants_to_quit = false;
         return false;
     }
     
     // Remover newline
     input[strcspn(input, "\n")] = 0;
     
-    // Verificar se o usuário quer sair
-    if (strlen(input) == 1 && toupper(input[0]) == 'Q') {
-        return false; // Retorna false para indicar que quer sair
+    // Verificar se o usuário quer sair (digitou '0')
+    if (strlen(input) == 1 && input[0] == '0') {
+        *wants_to_quit = true;
+        return false;
     }
+    
+    // Não é saída
+    *wants_to_quit = false;
     
     if (strlen(input) < 2) {
         return false;
@@ -101,6 +104,7 @@ bool io_get_coordinates(const char *prompt, int *row, int *col, int max_rows, in
     // Verificar limites
     return *row >= 0 && *row < max_rows && *col >= 0 && *col < max_cols;
 }
+
 int io_get_integer(const char *prompt, int min, int max) {
     char input[32];
     
@@ -173,8 +177,9 @@ void io_place_ships_manual(Game *game, Player *player) {
             board_print(board, true);
             
             int row, col;
+            bool dummy_wants_to_quit;
             if (!io_get_coordinates("Coordenada inicial", &row, &col, 
-                                   board->rows, board->cols)) {
+                                   board->rows, board->cols, &dummy_wants_to_quit)) {
                 printf("Coordenada invalida!\n");
                 io_press_enter();
                 continue;
