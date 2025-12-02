@@ -39,6 +39,23 @@ Implementar o clássico jogo *Batalha Naval* utilizando exclusivamente as biblio
 - *Sons simulados* com texto ASCII para feedback auditivo
 - *Opção de saída* durante o jogo (voltar ao menu)
 
+## ▶️ Como Executar o Projeto
+
+### 1. Abra o terminal (PowerShell, CMD ou outro)
+
+Navegue até a pasta do projeto:
+
+bash
+cd caminho/ate/batalha-naval-pif-2025/src
+
+### 2. Compile o Jogo
+
+gcc main.c board.c fleet.c game.c io.c rnd.c -o batalha_naval.exe
+
+### 3. Execute o Jogo
+
+./batalha_naval.exe
+
 ### ✅ Estruturas de Dados
 ```c
 typedef enum { CELL_WATER, CELL_SHIP, CELL_HIT, CELL_MISS } CellState;
@@ -58,19 +75,3 @@ typedef struct { Player p1, p2; int current_player; int game_over; int board_siz
 | `rnd.h / rnd.c`     | Geração de números aleatórios    |
 | `main.c`            | Ponto de entrada do programa     |
 
-## ▶️ Como Executar o Projeto
-
-### 1. Abra o terminal (PowerShell, CMD ou outro)
-
-Navegue até a pasta do projeto:
-
-```bash
-cd caminho/ate/batalha-naval-pif-2025/src
-
-### 2. Compile o Jogo
-
-gcc main.c board.c fleet.c game.c io.c rnd.c -o batalha_naval.exe
-
-### 3. Execute o Jogo
-
-./batalha_naval.exe
