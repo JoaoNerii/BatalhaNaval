@@ -48,7 +48,7 @@ Esta galeria mostra as principais telas e funcionalidades do jogo Batalha Naval 
 ## 🎮 Mecânicas de Jogo
 
 ### Feedback de Tiros
-![Tiro na Água](screenshots/97eedc19-aed1-49ee-accc-9f908010a6da.jpg)
+![Tiro na Água](screenshots/13533473-2e0d-42ed-aae9-ef319b7be00e.jpg)
 *Feedback visual e sonoro quando o tiro cai na água ("SPLAAASH! AGUA!").*
 
 ![Acerto Simples](screenshots/3d19b33f-9eec-42d7-98c1-db84555639d9.jpg)
@@ -81,4 +81,4 @@ Esta galeria mostra as principais telas e funcionalidades do jogo Batalha Naval 
 ![Interface Completa](screenshots/e4da55ae-8760-4d72-ba82-d42b13f05e91.jpg)
 *Visualização simultânea do tabuleiro próprio (com navios) e do tabuleiro de tiros (com acertos e erros).*
 
-
+#
